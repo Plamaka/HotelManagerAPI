@@ -14,12 +14,12 @@ namespace HotelManager.Repository
             _context = context;
         }
 
-
         public List<RoomClass> GetAll()
         {
             return _context.RoomClasses.ToList();
         }
-        
+
+
         public RoomClass GetById(int Id)
         {
             return _context.RoomClasses.Include(rc => rc.RoomClassFeatures).ThenInclude(rcf => rcf.Feature).FirstOrDefault(rc => rc.Id == Id);

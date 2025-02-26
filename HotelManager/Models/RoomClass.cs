@@ -16,6 +16,7 @@ namespace HotelManager.Models
         [Column(TypeName = "DECIMAL(8,2)")]
         public required decimal BasePrice { get; set; }
 
+
         public ICollection<Room> Rooms { get; set; } = new List<Room>();
 
         public ICollection<RoomClassFeature> RoomClassFeatures { get; set; } = new List<RoomClassFeature>();

@@ -5,6 +5,7 @@ namespace HotelManager.Mappers
 {
     public static class GuestMappers
     {
+
         public static GuestDTO CreateGuestDTO(this Guest guestModel)
         {
             return new GuestDTO

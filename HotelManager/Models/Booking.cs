@@ -28,6 +28,7 @@ namespace HotelManager.Models
         [Column(TypeName = "DECIMAL(8,2)")]
         public decimal BookingAmount { get; set; }
 
+
         public ICollection<BookingRoom> BookingRooms { get; set; } = new List<BookingRoom>();
     }
 }

@@ -1,5 +1,7 @@
+
 ﻿using HotelManager.DTOs;
 using HotelManager.Interfaces;
+﻿using HotelManager.Interfaces;
 using HotelManager.Mappers;
 using HotelManager.Models;
 using Microsoft.AspNetCore.Http;
@@ -18,7 +20,7 @@ namespace HotelManager.Controllers
             _guestRepository = guestRepository;
         }
 
-        
+
         [HttpPost]
         [Route("Create")]
         public IActionResult Create([FromBody] GuestDTO guestDto)
@@ -26,7 +28,7 @@ namespace HotelManager.Controllers
             var guestModel = guestDto.ToGuestFromGuestDTO();
             _guestRepository.Add(guestModel);
             return Ok();
-        }
+        }        
 
         [HttpGet]
         [Route("Index")]
