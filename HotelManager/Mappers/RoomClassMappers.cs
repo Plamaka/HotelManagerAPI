@@ -14,7 +14,7 @@ namespace HotelManager.Mappers
                 Capacity = roomClass.Capacity,
                 AllowsPet = roomClass.AllowsPet,
                 BasePrice = roomClass.BasePrice,
-                Features = roomClass.RoomClassFeatures.Select(f => new FeatureDTO { Id = f.Feature.Id, FeatureName = f.Feature.FeatureName }).ToList()
+                Features = roomClass.RoomClassFeatures.Select(f => new FeatureDTO {  FeatureName = f.Feature.FeatureName }).ToList()
             };
         }
 

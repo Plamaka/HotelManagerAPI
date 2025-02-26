@@ -1,6 +1,7 @@
 ﻿using HotelManager.Data;
 using HotelManager.Interfaces;
 using HotelManager.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace HotelManager.Repository
 {
@@ -20,7 +21,10 @@ namespace HotelManager.Repository
 
         public Room GetById(int Id)
         {
-            return _context.Rooms.FirstOrDefault(r => r.Id == Id);
+            return _context.Rooms.Include(r => r.RoomClass)
+                    .ThenInclude(rc => rc.RoomClassFeatures)
+                    .ThenInclude(rcf => rcf.Feature)
+                    .Include(r => r.RoomStatus).FirstOrDefault(r => r.Id == Id);
         }
 
         public bool Add(Room room)

@@ -8,6 +8,8 @@ namespace HotelManager.Interfaces
 
         RoomClass GetById(int Id);
 
+        bool RoomClassExists(int id);
+
         bool Add(RoomClass roomClass);
 
         bool Update(RoomClass roomClass);

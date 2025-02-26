@@ -25,6 +25,11 @@ namespace HotelManager.Repository
             return _context.RoomClasses.Include(rc => rc.RoomClassFeatures).ThenInclude(rcf => rcf.Feature).FirstOrDefault(rc => rc.Id == Id);
         }
 
+        public bool RoomClassExists(int id)
+        {
+            return _context.RoomClasses.Any(rc => rc.Id == id);
+        }
+
         public bool Add(RoomClass roomClass)
         {
             _context.Add(roomClass);

@@ -1,16 +1,10 @@
-﻿using HotelManager.Models;
-
-namespace HotelManager.DTOs
+﻿namespace HotelManager.DTOs
 {
-    public class RoomDTO
+    public class CreateRoomDTO
     {
-        public int Id { get; set; }
-
         public required string Description { get; set; }
 
         public int RoomClassId { get; set; }
-
-        public int RoomStatusId { get; set; }
 
         public required int RoomFloor { get; set; }
 

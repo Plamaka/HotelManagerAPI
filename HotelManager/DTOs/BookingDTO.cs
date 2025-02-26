@@ -5,9 +5,11 @@ namespace HotelManager.DTOs
 {
     public class BookingDTO
     {
-        public int GuestId { get; set; }
+        public int Id { get; set; }
 
-        public int PaymentStatusId { get; set; }
+        public Guest Guest { get; set; }
+
+        public PaymentStatus PaymentStatus { get; set; }
 
         public DateTime CheckInDate { get; set; }
 

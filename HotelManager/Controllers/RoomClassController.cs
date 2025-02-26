@@ -29,7 +29,7 @@ namespace HotelManager.Controllers
         }
 
         [HttpGet]
-        [Route("Index/{id}")]
+        [Route("Details/{id}")]
         public ActionResult<RoomClass> GetRoomClass([FromRoute] int id)
         {
             var roomClass = _roomClassRepository.GetById(id);

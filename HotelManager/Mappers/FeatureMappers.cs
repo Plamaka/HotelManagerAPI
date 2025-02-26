@@ -9,7 +9,6 @@ namespace HotelManager.Mappers
         {
             return new FeatureDTO
             {
-                Id = feature.Id,
                 FeatureName = feature.FeatureName
             };
         }
@@ -18,7 +17,6 @@ namespace HotelManager.Mappers
         {
             return new Feature
             {
-                Id = featureDTO.Id,
                 FeatureName = featureDTO.FeatureName
             };
         }

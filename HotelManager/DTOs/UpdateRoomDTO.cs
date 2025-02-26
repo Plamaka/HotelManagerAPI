@@ -1,11 +1,10 @@
 ﻿using HotelManager.Models;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace HotelManager.DTOs
 {
-    public class RoomDTO
+    public class UpdateRoomDTO
     {
-        public int Id { get; set; }
-
         public required string Description { get; set; }
 
         public int RoomClassId { get; set; }
