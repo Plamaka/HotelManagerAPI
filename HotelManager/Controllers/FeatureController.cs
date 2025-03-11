@@ -1,6 +1,7 @@
 ﻿using HotelManager.DTOs;
 using HotelManager.Interfaces;
 using HotelManager.Mappers;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,6 +9,7 @@ namespace HotelManager.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Roles = "Admin")]
     public class FeatureController : ControllerBase
     {
         private readonly IFeatureRepository _featureRepository;
@@ -22,6 +24,11 @@ namespace HotelManager.Controllers
         [Route("Create")]
         public IActionResult Create([FromBody] FeatureDTO featureDTO)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
             var featureModel = featureDTO.ToFeatureFromDTO();
             _featureRepository.Add(featureModel);
             return Ok();
@@ -39,11 +46,16 @@ namespace HotelManager.Controllers
         [Route("Update/{Id}")]
         public IActionResult Update([FromRoute] int Id, [FromBody] FeatureDTO featureDTO)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
             var model = _featureRepository.GetById(Id);
 
             if (model == null)
             {
-                return NotFound();
+                return NotFound("This Id was not found!");
             }
 
             model.FeatureName = featureDTO.FeatureName;
@@ -59,7 +71,7 @@ namespace HotelManager.Controllers
 
             if (model == null)
             {
-                return NotFound();
+                return NotFound("This Id was not found!");
             }
 
             _featureRepository.Delete(model);

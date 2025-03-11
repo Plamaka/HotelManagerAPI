@@ -9,9 +9,14 @@ namespace HotelManager.Models
         [Column(TypeName = "NVARCHAR(30)")]
         public required string ClassName { get; set; }
 
+        [Column(TypeName = "NVARCHAR(500)")]
+        public required string Description { get; set; }
+
         public required byte Capacity { get; set; }
 
         public bool AllowsPet { get; set; }
+
+        public int TotalRooms { get; set; }
 
         [Column(TypeName = "DECIMAL(8,2)")]
         public required decimal BasePrice { get; set; }

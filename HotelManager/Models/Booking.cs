@@ -7,9 +7,6 @@ namespace HotelManager.Models
     {
         public int Id { get; set; }
 
-        public int GuestId { get; set; }
-        public Guest Guest {get; set; }
-
         public int PaymentStatusId { get; set; }
         public PaymentStatus PaymentStatus { get; set; }
 
@@ -28,7 +25,7 @@ namespace HotelManager.Models
         [Column(TypeName = "DECIMAL(8,2)")]
         public decimal BookingAmount { get; set; }
 
-
+        public ICollection<BookingGuest> BookingGuests { get; set; } = new List<BookingGuest>();
         public ICollection<BookingRoom> BookingRooms { get; set; } = new List<BookingRoom>();
     }
 }

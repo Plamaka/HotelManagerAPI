@@ -1,6 +1,7 @@
 ﻿using HotelManager.DTOs;
 using HotelManager.Interfaces;
 using HotelManager.Mappers;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,6 +9,7 @@ namespace HotelManager.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Roles = "Admin")]
     public class RoomStatusController : ControllerBase
     {
         private readonly IRoomStatusRepository _roomStatusRepository;
@@ -22,6 +24,11 @@ namespace HotelManager.Controllers
         [Route("Create")]
         public IActionResult Create([FromBody] RoomStatusDTO roomStatusDTO)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
             var roomStatusModel = roomStatusDTO.ToRoomStatusFromDTO();
             _roomStatusRepository.Add(roomStatusModel);
             return Ok();
@@ -39,11 +46,16 @@ namespace HotelManager.Controllers
         [Route("Update/{Id}")]
         public IActionResult Update([FromRoute] int Id, [FromBody] RoomStatusDTO roomStatusDTO)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
             var model = _roomStatusRepository.GetById(Id);
 
             if (model == null)
             {
-                return NotFound();
+                return NotFound("This Id was not found!");
             }
 
             model.StatusName = roomStatusDTO.StatusName;
@@ -59,7 +71,7 @@ namespace HotelManager.Controllers
 
             if (model == null)
             {
-                return NotFound();
+                return NotFound("This Id was not found!");
             }
 
             _roomStatusRepository.Delete(model);

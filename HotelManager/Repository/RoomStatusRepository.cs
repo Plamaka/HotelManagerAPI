@@ -1,6 +1,7 @@
 ﻿using HotelManager.Data;
 using HotelManager.Interfaces;
 using HotelManager.Models;
+using System.Linq;
 
 namespace HotelManager.Repository
 {
@@ -15,6 +16,11 @@ namespace HotelManager.Repository
         public List<RoomStatus> GetAll()
         {
             return _context.RoomStatuses.ToList();
+        }
+
+        public RoomStatus GetByName(string name)
+        {
+            return _context.RoomStatuses.FirstOrDefault(rs =>rs.StatusName == name);
         }
 
         public RoomStatus GetById(int Id)
@@ -45,5 +51,6 @@ namespace HotelManager.Repository
             var saved = _context.SaveChanges();
             return saved > 0 ? true : false;
         }
+
     }
 }

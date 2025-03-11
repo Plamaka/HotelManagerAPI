@@ -3,6 +3,7 @@ using HotelManager.Interfaces;
 using HotelManager.Mappers;
 using HotelManager.Models;
 using HotelManager.Repository;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -11,48 +12,78 @@ namespace HotelManager.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    
     public class RoomClassController : ControllerBase
     {
         private readonly IRoomClassRepository _roomClassRepository;
+        private readonly IRoomRepository _roomRepository;
 
-        public RoomClassController(IRoomClassRepository roomClassRepository)
+        public RoomClassController(IRoomClassRepository roomClassRepository, IRoomRepository roomRepository)
         {
             _roomClassRepository = roomClassRepository;
+            _roomRepository = roomRepository;
+        }
+
+        [HttpPost]
+        [Route("SearchByPrice")]
+        public ActionResult<RoomClass> GetRoomClass([FromBody] SearchRoomClassByPriceDTO byPriceDTO)
+        {
+            var roomClass = _roomClassRepository.SearchByPrice(byPriceDTO.PriceMin, byPriceDTO.PriceMax);
+            return Ok(roomClass);
         }
 
         [HttpGet]
         [Route("Index")]
         public ActionResult<RoomClass> GetRoomClass()
         {
-            var roomClass = _roomClassRepository.GetAll().Select(s => s.ToRoomClassDTO());
+            var roomClass = _roomClassRepository.GetAll().Select(s => s.ToRoomClassDTO(_roomRepository.GetAll()));
             return Ok(roomClass);
         }
+
 
         [HttpGet]
         [Route("Details/{id}")]
         public ActionResult<RoomClass> GetRoomClass([FromRoute] int id)
         {
             var roomClass = _roomClassRepository.GetById(id);
+            if (roomClass == null)
+            {
+                return NotFound("This Id was not found!");
+            }
+
             return Ok(roomClass);
         }
 
+
         [HttpPost]
         [Route("Create")]
+        [Authorize(Roles = "Admin")]
         public IActionResult Create([FromBody] CreateRoomClassDTO createRoomClassDTO)
         {
-            var roomClass = createRoomClassDTO.ToRoomClassFromDTO();
+            if(!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var roomClass = createRoomClassDTO.ToRoomClassFromDTO(_roomRepository.GetAll());
 
             _roomClassRepository.Add(roomClass);
             return Ok();
         }
 
         [HttpPut("Update/{id}")]
+        [Authorize(Roles = "Admin")]
         public IActionResult Update([FromRoute] int id, [FromBody] CreateRoomClassDTO roomClassDTO)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
             var roomClass = _roomClassRepository.GetById(id);
             if (roomClass == null)
             {
-                return NotFound();
+                return NotFound("This Id was not found!");
             }
             var existingFeature = roomClass.RoomClassFeatures.Select(rcf => rcf.FeatureId).ToList();
             var newFeature = roomClassDTO.FeaturesId.Except(existingFeature).ToList();
@@ -83,13 +114,14 @@ namespace HotelManager.Controllers
 
         [HttpDelete]
         [Route("Delete/{id}")]
+        [Authorize(Roles = "Admin")]
         public ActionResult<RoomClass> Delete([FromRoute] int id)
         {
             var roomClass = _roomClassRepository.GetById(id);
 
             if (roomClass == null)
             {
-                return NotFound();
+                return NotFound("This Id was not found!");
             }
 
             _roomClassRepository.Delete(roomClass);

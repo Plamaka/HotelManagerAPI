@@ -1,11 +1,15 @@
 ﻿using HotelManager.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace HotelManager.Data
 {
-    public class HotelManagerDbContext : DbContext
+    public class HotelManagerDbContext : IdentityDbContext<Guest>
     {
         public DbSet<Booking> Bookings { get; set; }
+
+        public DbSet<BookingGuest> BookingGuests { get; set; }
 
         public DbSet<BookingRoom> BookingRooms { get; set; }
 
@@ -30,8 +34,9 @@ namespace HotelManager.Data
         {
             base.OnModelCreating(modelBuilder);
 
+            modelBuilder.Entity<BookingGuest>().HasKey(bg => new { bg.BookingId, bg.GuestId });
             modelBuilder.Entity<BookingRoom>().HasKey(br => new {br.BookingId, br.RoomId});
-            modelBuilder.Entity<RoomClassFeature>().HasKey(rf => new {rf.FeatureId, rf.RoomClassId});
+            modelBuilder.Entity<RoomClassFeature>().HasKey(rf => new {rf.FeatureId, rf.RoomClassId});           
         }
     }
 }

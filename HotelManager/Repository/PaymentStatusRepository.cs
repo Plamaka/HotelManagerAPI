@@ -23,6 +23,11 @@ namespace HotelManager.Repository
             return _context.PaymentStatuses.FirstOrDefault(g => g.Id == Id);
         }
 
+        public bool PaymentStatusExists(int id)
+        {
+            return _context.PaymentStatuses.Any(rc => rc.Id == id);
+        }
+
         public bool Add(PaymentStatus paymentStatus)
         {
             _context.Add(paymentStatus);

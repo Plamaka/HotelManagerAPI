@@ -18,7 +18,7 @@ namespace HotelManager.Repository
             return _context.Guests.ToList();
         }
 
-        public Guest GetById(int Id)
+        public Guest GetById(string Id)
         {
             return _context.Guests.FirstOrDefault(g => g.Id == Id);
         }

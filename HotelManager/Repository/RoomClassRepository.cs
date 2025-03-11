@@ -17,8 +17,7 @@ namespace HotelManager.Repository
         public List<RoomClass> GetAll()
         {
             return _context.RoomClasses.ToList();
-        }
-
+        }    
 
         public RoomClass GetById(int Id)
         {
@@ -28,6 +27,11 @@ namespace HotelManager.Repository
         public bool RoomClassExists(int id)
         {
             return _context.RoomClasses.Any(rc => rc.Id == id);
+        }
+
+        public List<RoomClass> SearchByPrice(decimal priceMin,decimal priceMax)
+        {
+            return _context.RoomClasses.Where(rc => rc.BasePrice >= priceMin && priceMax >= rc.BasePrice).ToList();
         }
 
         public bool Add(RoomClass roomClass)

@@ -6,6 +6,10 @@ namespace HotelManager.Interfaces
     {
         List<Room> GetAll();
 
+        List<Room> SearchFreeRoom();
+
+        List<Room> SearchFreeRoomAllowsPet();
+
         Room GetById(int Id);
 
         bool Add(Room room);

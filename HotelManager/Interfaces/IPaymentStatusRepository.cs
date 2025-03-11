@@ -8,6 +8,8 @@ namespace HotelManager.Interfaces
 
         PaymentStatus GetById(int Id);
 
+        bool PaymentStatusExists(int id);
+
         bool Add(PaymentStatus paymentStatus);
 
         bool Update(PaymentStatus paymentStatus);

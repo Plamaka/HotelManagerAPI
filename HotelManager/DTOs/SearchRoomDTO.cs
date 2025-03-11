@@ -1,9 +1,7 @@
 ﻿namespace HotelManager.DTOs
 {
-    public class CreateBookingDTO
+    public class SearchRoomDTO
     {
-        public List<int> RoomIds { get; set; }
-
         public DateTime CheckInDate { get; set; }
 
         public DateTime CheckOutDate { get; set; }
@@ -13,8 +11,6 @@
         public int NumOfChild { get; set; }
 
         public bool pet { get; set; }
-
-        public int PaymentStatusId { get; set; }
     }
-        
 }
+

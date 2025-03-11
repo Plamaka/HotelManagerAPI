@@ -8,6 +8,8 @@ namespace HotelManager.Interfaces
 
         RoomStatus GetById(int Id);
 
+        RoomStatus GetByName(string name);        
+
         bool Add(RoomStatus roomStatus);
 
         bool Update(RoomStatus roomStatus);

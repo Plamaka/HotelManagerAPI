@@ -8,6 +8,8 @@ namespace HotelManager.Interfaces
 
         RoomClass GetById(int Id);
 
+        List<RoomClass> SearchByPrice(decimal priceMin, decimal priceMax);
+
         bool RoomClassExists(int id);
 
         bool Add(RoomClass roomClass);

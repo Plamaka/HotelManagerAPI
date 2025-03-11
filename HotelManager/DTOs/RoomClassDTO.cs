@@ -8,9 +8,13 @@ namespace HotelManager.DTOs
 
         public required string ClassName { get; set; }
 
+        public required string Description { get; set; }
+
         public required byte Capacity { get; set; }
 
         public required bool AllowsPet { get; set; }
+
+        public int TotalRooms { get; set; }
 
         public required decimal BasePrice { get; set; }
 

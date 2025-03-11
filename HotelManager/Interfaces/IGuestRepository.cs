@@ -6,7 +6,7 @@ namespace HotelManager.Interfaces
     {
         List<Guest> GetAll();
 
-        Guest GetById(int Id);
+        Guest GetById(string Id);
 
         bool Add(Guest guest);
 

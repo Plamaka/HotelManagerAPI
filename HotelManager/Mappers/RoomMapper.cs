@@ -9,8 +9,7 @@ namespace HotelManager.Mappers
         {
             return new RoomDTO
             {
-                Id = room.Id,
-               Description = room.Description,
+               Id = room.Id,
                RoomStatusId = room.RoomStatusId,
                RoomClassId = room.RoomClassId,
                RoomFloor = room.RoomFloor,
@@ -18,12 +17,11 @@ namespace HotelManager.Mappers
             };
         }
 
-        public static Room ToRoomFromDTO(this CreateRoomDTO roomDTO)
+        public static Room ToRoomFromDTO(this CreateRoomDTO roomDTO, RoomStatus roomStatuses)
         {
             return new Room
             {
-                Description = roomDTO.Description,
-                RoomStatusId = 1,
+                RoomStatusId = roomStatuses.Id,
                 RoomClassId = roomDTO.RoomClassId,
                 RoomFloor = roomDTO.RoomFloor,
                 RoomNumber = roomDTO.RoomNumber

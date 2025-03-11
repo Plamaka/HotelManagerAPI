@@ -1,11 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using Microsoft.AspNetCore.Identity;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace HotelManager.Models
 {
-    public class Guest
+    public class Guest : IdentityUser
     {
-        public int Id { get; set; }
-
         [Column(TypeName = "NVARCHAR(50)")]
         public required string FirstName { get; set; }
 
@@ -18,6 +17,6 @@ namespace HotelManager.Models
         [Column(TypeName = "VARCHAR(30)")]
         public required string PhoneNumber { get; set; }
 
-        public ICollection<Booking> Bookings { get; set; } = new List<Booking>();
+        public ICollection<BookingGuest> BookingGuests { get; set; } = new List<BookingGuest>();
     }
 }

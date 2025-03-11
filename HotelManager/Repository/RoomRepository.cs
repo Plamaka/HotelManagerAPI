@@ -16,9 +16,20 @@ namespace HotelManager.Repository
 
         public List<Room> GetAll()
         {
-            return _context.Rooms.ToList();
+            return _context.Rooms.Include(r => r.RoomClass).ToList();
         }
 
+        public List<Room> SearchFreeRoom()
+        {
+            return _context.Rooms.Include(r => r.RoomClass).Include(rs => rs.RoomStatus).Where(r => r.RoomStatus.StatusName == "Free").ToList();
+        }
+
+        public List<Room> SearchFreeRoomAllowsPet()
+        {
+            return _context.Rooms.Include(r => r.RoomClass).Include(rs => rs.RoomStatus).Where(rs => rs.RoomClass.AllowsPet == true && rs.RoomStatus.StatusName == "Free").ToList();
+        }
+
+ 
         public Room GetById(int Id)
         {
             return _context.Rooms.Include(r => r.RoomClass)
