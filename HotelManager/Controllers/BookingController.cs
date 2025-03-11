@@ -73,7 +73,7 @@ namespace HotelManager.Controllers
         }
 
         [HttpPost("Create")]
-        [Authorize(Roles = "User")]
+        [Authorize(Roles = "Admin,User")]
         public IActionResult Create([FromBody] CreateBookingDTO createBookingDTO)
         {
             var curUser = _httpContextAccessor.HttpContext?.User.GetUserId();

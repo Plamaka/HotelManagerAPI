@@ -35,7 +35,7 @@ namespace HotelManager.Controllers
         }
 
         [HttpGet("GuestBooking")]
-        [Authorize(Roles = "User")]
+        [Authorize(Roles = "Admin,User")]
         public IActionResult GuestBooking()
         {
             var curUserId = _httpContextAccessor.HttpContext?.User.GetUserId();

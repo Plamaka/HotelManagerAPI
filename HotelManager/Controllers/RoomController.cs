@@ -25,7 +25,7 @@ namespace HotelManager.Controllers
 
         [HttpGet]
         [Route("Index")]
-        [Authorize(Roles = "User")]
+        [Authorize(Roles = "Admin")]
         public IActionResult Index()
         {
             var room = _roomRepository.GetAll().Select(r => r.ToRoomDTO());
@@ -48,6 +48,7 @@ namespace HotelManager.Controllers
 
         [HttpPost]
         [Route("Create")]
+        [Authorize(Roles = "Admin")]
         public IActionResult Create( [FromBody] CreateRoomDTO roomDTO)
         {
             if (!ModelState.IsValid)
